@@ -3,7 +3,7 @@ import { KNOWN_FIRE_COUNTS } from '../utils/countryData';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ||
   (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.168.')
-    ? window.location.origin
+    ? 'https://bricsvue-api.onrender.com'
     : 'http://localhost:8000');
 
 const api = axios.create({

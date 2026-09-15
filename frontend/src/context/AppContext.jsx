@@ -17,7 +17,7 @@ export const AppProvider = ({ children }) => {
     const connect = () => {
       const wsUrl = import.meta.env.VITE_WS_URL ||
         (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('192.168.')
-          ? `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/live`
+          ? 'wss://bricsvue-api.onrender.com/ws/live'
           : 'ws://localhost:8000/ws/live');
       ws = new WebSocket(wsUrl);
 
