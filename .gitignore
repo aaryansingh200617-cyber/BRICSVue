@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Production builds
+frontend/dist/
+dist/
+
+# Python
+__pycache__/
+backend/__pycache__/
+backend/*/__pycache__/
+*.py[cod]
+*$py.class
+*.env
+backend/.env
+venv/
+backend/venv/
+env/
+.venv/
+
+# Firebase cache
+.firebase/
+firebase-debug.log*
+firestore-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+*.log

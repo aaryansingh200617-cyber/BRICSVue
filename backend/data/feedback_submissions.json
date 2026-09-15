@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Aaryan Singh",
+    "email": "aaryanrampage@gmail.com",
+    "category": "general",
+    "subject": "Verification",
+    "message": "System operational verification",
+    "timestamp": "2026-09-14 19:34:20 UTC"
+  },
+  {
+    "name": "aaryan",
+    "email": "aaryanrampage@gmail.com",
+    "category": "Data Verification",
+    "subject": "Query from aaryan",
+    "message": "Helllo",
+    "timestamp": "2026-09-14 19:59:26 UTC"
+  },
+  {
+    "name": "Admin User",
+    "email": "aaryanrampage@gmail.com",
+    "category": "general",
+    "subject": "Status check",
+    "message": "All systems green",
+    "timestamp": "2026-09-14 20:20:37 UTC"
+  },
+  {
+    "name": "Test User",
+    "email": "test@example.com",
+    "category": "General Feedback",
+    "subject": "Query from Test User",
+    "message": "Test query",
+    "timestamp": "2026-09-15 07:40:07 UTC"
+  },
+  {
+    "name": "Production Verification",
+    "email": "verify@bricsvue.org",
+    "category": "General Feedback",
+    "subject": "Query from Production Verification",
+    "message": "Testing production feedback pipeline routing to aaryanrampage@gmail.com",
+    "timestamp": "2026-09-15 07:44:52 UTC"
+  }
+]
