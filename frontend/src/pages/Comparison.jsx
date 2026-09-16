@@ -5,6 +5,7 @@ import {
   ResponsiveContainer, Cell
 } from 'recharts';
 import StatCard from '../components/common/StatCard';
+import CountryFlag from '../components/common/CountryFlag';
 import { ShieldAlert, ThumbsUp, Flame, ArrowUp, ArrowDown, Minus, ExternalLink, RefreshCw } from 'lucide-react';
 import { fetchComparison, fetchFireStats } from '../services/api';
 import { KNOWN_FIRE_COUNTS } from '../utils/countryData';
@@ -124,21 +125,36 @@ const Comparison = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
           title="Highest AQI Risk"
-          value={`${highestAqiCountry.flag} ${highestAqiCountry.name}`}
+          value={
+            <span className="flex items-center gap-2">
+              <CountryFlag code={highestAqiCountry.country_code} country={highestAqiCountry.name} className="w-7 h-5" />
+              <span>{highestAqiCountry.name}</span>
+            </span>
+          }
           subtitle={`AQI: ${highestAqiCountry.aqi_value} (${highestAqiCountry.aqi_risk_level})`}
           icon={ShieldAlert}
           color="red"
         />
         <StatCard
           title="Most Active Fire Events"
-          value={`${mostFiresCountry.flag} ${mostFiresCountry.name}`}
+          value={
+            <span className="flex items-center gap-2">
+              <CountryFlag code={mostFiresCountry.country_code} country={mostFiresCountry.name} className="w-7 h-5" />
+              <span>{mostFiresCountry.name}</span>
+            </span>
+          }
           subtitle={`${mostFiresCountry.fire_count} active thermal clusters (NASA FIRMS)`}
           icon={Flame}
           color="orange"
         />
         <StatCard
           title="Best Air Quality"
-          value={`${bestAqiCountry.flag} ${bestAqiCountry.name}`}
+          value={
+            <span className="flex items-center gap-2">
+              <CountryFlag code={bestAqiCountry.country_code} country={bestAqiCountry.name} className="w-7 h-5" />
+              <span>{bestAqiCountry.name}</span>
+            </span>
+          }
           subtitle={`AQI: ${bestAqiCountry.aqi_value} (Lowest regional particulate)`}
           icon={ThumbsUp}
           color="green"
@@ -190,8 +206,8 @@ const Comparison = () => {
                     const d = payload[0].payload;
                     return (
                       <div className="bg-slate-900 text-white p-3 rounded-xl shadow-xl border border-slate-800 text-xs space-y-1">
-                        <div className="flex items-center gap-1.5 font-bold text-sm">
-                          <span>{d.flag}</span>
+                        <div className="flex items-center gap-2 font-bold text-sm">
+                          <CountryFlag code={d.country_code} country={d.name} className="w-4 h-3" />
                           <span>{d.name}</span>
                         </div>
                         <p className="text-slate-300">Monitored City: <strong>{d.city}</strong></p>
@@ -241,8 +257,8 @@ const Comparison = () => {
               {data.map((row, i) => (
                 <tr key={row.country_code || i} className="hover:bg-blue-50/40 transition-colors">
                   <td className="px-4 sm:px-6 py-3 sm:py-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl">{row.flag}</span>
+                    <div className="flex items-center gap-2.5">
+                      <CountryFlag code={row.country_code} country={row.name} className="w-6 h-4.5 rounded-xs shadow-xs" />
                       <div>
                         <p className="font-bold text-slate-900 leading-tight text-xs sm:text-sm">{row.name}</p>
                         <p className="text-xs text-slate-400">{row.city}</p>

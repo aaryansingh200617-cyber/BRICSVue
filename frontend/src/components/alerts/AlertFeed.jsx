@@ -1,5 +1,6 @@
 import React from 'react';
 import { AlertTriangle, AlertCircle, Info, CheckCircle2 } from 'lucide-react';
+import CountryFlag from '../common/CountryFlag';
 
 const SEVERITY_STYLES = {
   critical: {
@@ -67,9 +68,10 @@ const AlertFeed = ({ alerts = [] }) => {
                 <span className={`text-[10px] font-bold uppercase px-1.5 py-0.2 rounded ${styles.badge}`}>
                   {alert.severity}
                 </span>
-                {alert.country && (
-                  <span className="text-[11px] text-slate-500 font-medium ml-1">
-                    {alert.flag} {alert.country_name}
+                {(alert.country || alert.country_name) && (
+                  <span className="text-[11px] text-slate-500 font-medium ml-1 inline-flex items-center gap-1">
+                    <CountryFlag code={alert.country || alert.country_code} country={alert.country_name} className="w-3.5 h-2.5" />
+                    <span>{alert.country_name || alert.country}</span>
                   </span>
                 )}
               </div>

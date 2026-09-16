@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { fetchAQI, fetchWeather, fetchFireStats } from '../../services/api';
 import { KNOWN_FIRE_COUNTS, resolveCountryCode } from '../../utils/countryData';
+import CountryFlag from '../common/CountryFlag';
 
 const getAQIColor = (aqi) => {
   if (aqi <= 50) return { text: 'text-emerald-600', bg: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-500' };
@@ -117,14 +118,14 @@ const CountryIntelligencePanel = ({ country, fireCount = 0, onClose }) => {
       {/* ── HEADER ── */}
       <div className="flex items-start justify-between pb-3 border-b border-slate-100">
         <div className="flex items-center gap-2.5">
-          <span className="text-3xl">{country.flag || '🌍'}</span>
+          <CountryFlag code={countryCode} country={countryName} className="w-9 h-6.5 rounded-sm shadow-xs" />
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-lg font-bold text-slate-900 leading-tight">
                 {countryName}
               </h3>
-              <span className="px-2 py-0.5 rounded-md bg-teal-50 text-teal-800 text-xs font-bold border border-teal-200/60 flex items-center gap-1">
-                <span>{country.flag || '🌍'}</span>
+              <span className="px-2 py-0.5 rounded-md bg-teal-50 text-teal-800 text-xs font-bold border border-teal-200/60 flex items-center gap-1.5">
+                <CountryFlag code={countryCode} country={countryName} className="w-3.5 h-2.5" />
                 <span>Sovereign State</span>
               </span>
             </div>

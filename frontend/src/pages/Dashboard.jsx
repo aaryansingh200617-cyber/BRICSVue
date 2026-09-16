@@ -10,6 +10,7 @@ import { BASEMAP_PRESETS } from '../utils/mapConstants';
 import LayerControl from '../components/map/LayerControl';
 import AlertFeed from '../components/alerts/AlertFeed';
 import CountryIntelligencePanel from '../components/dashboard/CountryIntelligencePanel';
+import CountryFlag from '../components/common/CountryFlag';
 import { AppContext } from '../context/AppContext';
 import {
   fetchBRICSOverview,
@@ -207,7 +208,7 @@ const Dashboard = () => {
                 {selectedCountryDetail ? (
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-slate-900 flex items-center gap-1.5">
-                      <span className="text-base">{selectedCountryDetail.flag}</span>
+                      <CountryFlag code={selectedCountryDetail.country_code} country={selectedCountryDetail.name || selectedCountryDetail.country_name} className="w-5 h-3.5" />
                       <span>{selectedCountryDetail.name || selectedCountryDetail.country_name}</span>
                       {selectedCountryDetail.city && (
                         <span className="text-slate-400 font-normal hidden sm:inline">({selectedCountryDetail.city})</span>
@@ -322,9 +323,9 @@ const Dashboard = () => {
                             <button
                               key={c.country_code}
                               onClick={() => setSelectedCountryDetail(c)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 bg-slate-50 hover:bg-teal-50 hover:text-teal-800 hover:border-teal-200/60 text-slate-600 text-xs font-medium rounded-md border border-slate-200/70 transition-all"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 hover:bg-teal-50 hover:text-teal-800 hover:border-teal-200/60 text-slate-600 text-xs font-medium rounded-md border border-slate-200/70 transition-all"
                             >
-                              <span>{c.flag}</span>
+                              <CountryFlag code={c.country_code} country={c.country_name} className="w-3.5 h-2.5" />
                               <span>{c.country_name}</span>
                             </button>
                           ))}
@@ -335,8 +336,12 @@ const Dashboard = () => {
                         {crossBorder.slice(0, 3).map((ev, i) => (
                           <div key={i} className="p-2.5 bg-slate-50 border border-slate-200/70 rounded-lg text-xs">
                             <div className="flex items-center justify-between mb-1">
-                              <span className="font-semibold text-slate-800">
-                                {ev.source_flag} {ev.source_country_name} → {ev.affected_flag} {ev.affected_country_name}
+                              <span className="font-semibold text-slate-800 flex items-center gap-1.5">
+                                <CountryFlag code={ev.source_country_name} country={ev.source_country_name} className="w-3.5 h-2.5" />
+                                <span>{ev.source_country_name}</span>
+                                <span className="text-slate-400">→</span>
+                                <CountryFlag code={ev.affected_country_name} country={ev.affected_country_name} className="w-3.5 h-2.5" />
+                                <span>{ev.affected_country_name}</span>
                               </span>
                               <span className={`px-1.5 py-0.2 rounded text-white font-bold text-[10px] ${ev.status === 'Active' ? 'bg-rose-600' : 'bg-amber-600'}`}>
                                 {ev.status}
@@ -393,7 +398,7 @@ const Dashboard = () => {
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-xl">{c.flag}</span>
+                        <CountryFlag code={c.country_code} country={c.country_name} className="w-6 h-4.5 rounded-xs shadow-xs" />
                         <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded-full truncate max-w-[65px] ${isSelected ? 'bg-slate-800 text-slate-300' : 'bg-white/80 text-slate-600'}`}>
                           {c.status || 'Active'}
                         </span>

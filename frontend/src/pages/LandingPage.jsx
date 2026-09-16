@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { AppContext } from '../context/AppContext';
 import { fetchFireStats } from '../services/api';
+import CountryFlag from '../components/common/CountryFlag';
 
 const BRICS_MEMBERS = [
   { name: 'Brazil',       flag: '🇧🇷', code: 'BR', hub: 'Brasília & São Paulo',   region: 'South America',   status: 'Operational' },
@@ -426,7 +427,7 @@ const LandingPage = () => {
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-2xl">{m.flag}</span>
+                    <CountryFlag code={m.code} country={m.name} className="w-8 h-5.5 rounded-xs shadow-xs" />
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60">
                       Active
                     </span>

@@ -24,6 +24,22 @@ export const COUNTRY_FLAGS = {
   SA: '🇸🇦',
   AE: '🇦🇪',
   ID: '🇮🇩',
+  PK: '🇵🇰',
+  MY: '🇲🇾',
+};
+
+export const getCountryFlagUrl = (c) => {
+  const code = resolveCountryCode(c);
+  if (!code || code === 'BRICS') return null;
+  return `/flags/${code.toLowerCase()}.png`;
+};
+
+export const getCountryFlagImgHtml = (c, { className = 'inline-block rounded-xs shadow-xs align-middle', style = 'width: 18px; height: 12px; object-fit: cover; border-radius: 2px;', alt = '' } = {}) => {
+  const code = resolveCountryCode(c);
+  if (!code || code === 'BRICS') return '<span style="font-size: 14px;">🌍</span>';
+  const localUrl = `/flags/${code.toLowerCase()}.png`;
+  const cdnUrl = `https://flagcdn.com/w80/${code.toLowerCase()}.png`;
+  return `<img src="${localUrl}" onerror="this.src='${cdnUrl}'" alt="${alt || code}" class="${className}" style="${style}" />`;
 };
 
 export const resolveCountryFlag = (c) => {
@@ -37,11 +53,11 @@ export const resolveCountryCode = (c) => {
   if (!c) return 'BRICS';
   if (typeof c === 'string') {
     const s = c.trim().toUpperCase();
-    if (KNOWN_FIRE_COUNTS[s]) return s;
+    if (KNOWN_FIRE_COUNTS[s] || s === 'PK' || s === 'MY') return s;
     const lower = c.toLowerCase();
     if (lower.includes('brazil') || lower.includes('brasilia')) return 'BR';
     if (lower.includes('russia') || lower.includes('moscow')) return 'RU';
-    if (lower.includes('india') || lower.includes('delhi')) return 'IN';
+    if (lower.includes('india') || lower.includes('delhi') || lower.includes('punjab')) return 'IN';
     if (lower.includes('china') || lower.includes('beijing')) return 'CN';
     if (lower.includes('south africa') || lower.includes('johannesburg')) return 'ZA';
     if (lower.includes('egypt') || lower.includes('cairo')) return 'EG';
@@ -49,15 +65,17 @@ export const resolveCountryCode = (c) => {
     if (lower.includes('iran') || lower.includes('tehran')) return 'IR';
     if (lower.includes('arabia') || lower.includes('riyadh')) return 'SA';
     if (lower.includes('emirates') || lower.includes('uae') || lower.includes('dubai')) return 'AE';
-    if (lower.includes('indonesia') || lower.includes('jakarta')) return 'ID';
+    if (lower.includes('indonesia') || lower.includes('jakarta') || lower.includes('kalimantan')) return 'ID';
+    if (lower.includes('pakistan') || lower.includes('lahore')) return 'PK';
+    if (lower.includes('malaysia') || lower.includes('kuala')) return 'MY';
     return s.slice(0, 2);
   }
   const rawCode = c?.code || c?.country_code || c?.country;
-  if (KNOWN_FIRE_COUNTS[rawCode]) return rawCode;
+  if (KNOWN_FIRE_COUNTS[rawCode] || rawCode === 'PK' || rawCode === 'MY') return rawCode;
   const name = (c?.name || c?.country_name || '').toLowerCase();
   if (name.includes('brazil') || name.includes('brasilia')) return 'BR';
   if (name.includes('russia') || name.includes('moscow')) return 'RU';
-  if (name.includes('india') || name.includes('delhi')) return 'IN';
+  if (name.includes('india') || name.includes('delhi') || name.includes('punjab')) return 'IN';
   if (name.includes('china') || name.includes('beijing')) return 'CN';
   if (name.includes('south africa') || name.includes('johannesburg')) return 'ZA';
   if (name.includes('egypt') || name.includes('cairo')) return 'EG';
@@ -65,6 +83,8 @@ export const resolveCountryCode = (c) => {
   if (name.includes('iran') || name.includes('tehran')) return 'IR';
   if (name.includes('arabia') || name.includes('riyadh')) return 'SA';
   if (name.includes('emirates') || name.includes('uae') || name.includes('dubai')) return 'AE';
-  if (name.includes('indonesia') || name.includes('jakarta')) return 'ID';
+  if (name.includes('indonesia') || name.includes('jakarta') || name.includes('kalimantan')) return 'ID';
+  if (name.includes('pakistan') || name.includes('lahore')) return 'PK';
+  if (name.includes('malaysia') || name.includes('kuala')) return 'MY';
   return 'BRICS';
 };

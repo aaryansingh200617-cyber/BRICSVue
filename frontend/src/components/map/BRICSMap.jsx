@@ -5,7 +5,8 @@ import { fetchBRICSOverview, fetchFires, fetchHotspots } from '../../services/ap
 import FirePopup from './FirePopup';
 import PollutionPopup from './PollutionPopup';
 import { Layers, Globe, Compass } from 'lucide-react';
-import { resolveCountryFlag } from '../../utils/countryData';
+import { resolveCountryFlag, getCountryFlagImgHtml } from '../../utils/countryData';
+import CountryFlag from '../common/CountryFlag';
 
 // Initial fallback cities so the map is never empty even while live API is fetching
 const DEFAULT_CITIES = [
@@ -129,7 +130,7 @@ const createCountryBadgeIcon = (territory, isHovered) => {
         transform: translate(-50%, -50%);
         transition: all 0.15s ease;
       ">
-        <span style="font-size: 13px; line-height: 1;">${territory.flag}</span>
+        ${getCountryFlagImgHtml(territory.code, { style: 'width: 18px; height: 13px; object-fit: cover; border-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.25); display: inline-block; vertical-align: middle;' })}
         <span style="letter-spacing: -0.01em;">${territory.name}</span>
         <span style="
           font-size: 9px;
@@ -268,7 +269,7 @@ const BRICSMap = ({
             >
               <Tooltip direction="top" offset={[0, -10]} opacity={0.95}>
                 <div className="text-xs font-sans text-slate-800 p-0.5">
-                  <span className="font-bold">{t.flag} {t.name}</span> (BRICS Sovereign Member)<br />
+                  <span className="font-bold flex items-center gap-1.5 inline-flex"><CountryFlag code={t.code} country={t.name} className="w-4 h-3" /> {t.name}</span> (BRICS Sovereign Member)<br />
                   <span className="text-slate-500 text-[10px]">Click to inspect {cap.city} &amp; national telemetry</span>
                 </div>
               </Tooltip>
@@ -304,7 +305,7 @@ const BRICSMap = ({
                 <Tooltip direction="top" offset={[0, -8]} opacity={0.97} sticky>
                   <div className="text-xs font-sans text-slate-800 p-0.5 leading-snug">
                     <div className="font-bold flex items-center gap-1.5">
-                      <span className="text-base">{city.flag || resolveCountryFlag(city.country_code)}</span>
+                      <CountryFlag code={city.country_code} country={city.country_name} className="w-4 h-3" />
                       <span>{city.city || city.city_name}</span>
                       {city.country_name && (
                         <span className="text-slate-400 font-normal text-[11px]">({city.country_name})</span>
@@ -451,7 +452,7 @@ const BRICSMap = ({
                   <Popup maxWidth={240}>
                     <div className="text-sm">
                       <div className="font-bold text-orange-700 mb-1">📈 High-Risk Prediction Zone</div>
-                      <div><strong>{city.flag} {city.country_name}</strong> — {city.city}</div>
+                      <div className="flex items-center gap-1.5"><CountryFlag code={city.country_code} country={city.country_name} className="w-4 h-3" /><strong>{city.country_name}</strong> — {city.city}</div>
                       <div>Current AQI: <strong>{city.aqi}</strong></div>
                       <div className="text-xs text-slate-500 mt-1">Projected transboundary transport risk in next 6–24h.</div>
                     </div>

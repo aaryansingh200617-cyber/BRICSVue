@@ -1,5 +1,5 @@
 import React from 'react';
-import { resolveCountryFlag } from '../../utils/countryData';
+import CountryFlag from '../common/CountryFlag';
 
 const getAQIColor = (aqi) => {
   if (aqi < 50) return 'text-green-600';
@@ -12,8 +12,8 @@ const getAQIColor = (aqi) => {
 
 const PollutionPopup = ({ city }) => (
   <div className="p-2 min-w-[200px]">
-    <h3 className="font-bold text-lg text-slate-800 flex items-center gap-1.5">
-      <span>{city.flag || resolveCountryFlag(city.country_code || city.country)}</span>
+    <h3 className="font-bold text-lg text-slate-800 flex items-center gap-2">
+      <CountryFlag code={city.country_code || city.country} country={city.country_name} className="w-5 h-3.5" />
       <span>{city.name || city.city}</span>
     </h3>
     <p className="text-xs text-slate-500">{city.country_name || city.country}</p>
